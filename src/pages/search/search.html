@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-navbar>
+    <ion-searchbar (ionInput)="getItems($event)"
+                   autocomplete="on"
+                   placeholder="Buscar"
+    ></ion-searchbar>
+
+    <ion-buttons start style="padding-left: 10px;">
+      <button ion-button icon-only (click)="closeModal()"  >
+        <ion-icon md="md-close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content style="background: #f3f3f3" padding>
+
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+
+
+  <ion-card  style=" width:auto; margin:0px; margin-bottom: 10px; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -12px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.12);"
+               *ngFor="let info of filterInformacionGeneral; let i = index">
+      <ion-card-header>
+        <ion-grid>
+          <ion-row>
+            
+            <ion-col col-5  style="padding-top: 15px;">
+              <div style=" padding-left: 20px">
+                <h2>{{info.nombre}}</h2>
+                <h6 style="font-size: 12px;padding-top: 3px;">{{getInformacionGeneralName(info.id_info_general)}}</h6>
+              </div>
+            </ion-col>
+            <!--<div style="display: inline-block; float: right">-->
+            <ion-buttons end>
+              <button ion-button icon-only style=" box-shadow: none; background: none;float: right; color:gray;border: none;padding-right: 10px;" (click)="eliminarReserva(reserva.id_reservation,i)">
+                <ion-icon md="md-trash" ></ion-icon>
+              </button>
+            </ion-buttons>
+            <!-- <ion-buttons end>
+               <button (click)="cambiarStatusReserva(reserva.id_reservation)" ion-button icon-only style="    box-shadow: none;background: none;float: right; color:gray;border: none" >
+                 <ion-icon md="md-alert"></ion-icon>
+               </button>
+             </ion-buttons>-->
+            <!--</div>-->
+            <ion-col  style=" float: right">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+      <ion-card-content>
+        <hr>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1 style="padding-top: 5px;font-size: 25px">
+              <ion-icon  name="ios-log-in" ></ion-icon>
+            </ion-col>
+            <ion-col col-4  style="padding-top: 17px; padding-left: 20px">
+  
+              <h4>{{info.num_pisos}}</h4> <!--tengo q poner algun atributo de informacion-->
+  
+            </ion-col>
+            <ion-col  col-1>
+            </ion-col>
+            <ion-col col-1 style="padding-top: 5px;font-size: 25px">
+              <ion-icon  name="ios-log-out" ></ion-icon>
+            </ion-col>
+            <ion-col col-4  style="padding-top: 17px; padding-left: 20px">
+  
+              <h4>{{info.uso_actual}}</h4>
+  
+            </ion-col>
+  
+            <!--bed-->
+          </ion-row>
+          <ion-row>
+            <ion-col col-1 style=" padding-top:0px; font-size: 25px">
+              <ion-icon name="ios-home" style="color:grey"></ion-icon>
+            </ion-col>
+            <ion-col col-4  style="padding-left: 20px;padding-top: 12px;font-size: 25px">
+  
+              <h4>{{getInformacionGeneralName(info.id_info_general)}}</h4>
+  
+            </ion-col>
+            <ion-col col-7  style="font-size: 25px">
+  
+              <ion-buttons end>
+                <button (click)="viewInformacionGeneral(info)" ion-button icon-only style="    box-shadow: none;background: none;float: right; color:gray;border: none" >
+                  <ion-icon md="md-eye"></ion-icon>
+                </button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+  
+  
+      </ion-card-content>
+    </ion-card>
+
+
+</ion-content>
