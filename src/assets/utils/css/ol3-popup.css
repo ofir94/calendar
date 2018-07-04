@@ -2,9 +2,8 @@
     display: none;
     position: absolute;
     background-color: white;
-    padding: 4px;
+    padding: 15px 25px 15px 15px;
     border: 1px solid #cccccc;
-	border-radius: 10px;
     bottom: 12px;
     left: -50px;
 }
@@ -34,32 +33,16 @@
 }
 
 .ol-popup-content {
-    min-width: 100px;
-	max-width: 400px;
-
+    min-width: 170px;
+    max-height: 200px;
     overflow-x: auto;
-    margin-top: 19px;
-
-}
-
-.ol-popup-content p, h1, h2, h3, h4, h5, h6{
-	/*line-height: 15px;*/
-
-    margin-left: 5%;
-
-    margin-right: 5%;
-
-}
-
-.ol-popup-content h1, h2, h3{
-	font-size: 12pt;
-	font-weight: bold;
 }
 
 .ol-popup-closer {
     position: absolute;
-    right: 1px;
-    font-size: 100%;
+    top: 2px;
+    right: 2px;
+    font-size: 150%;
     padding: 0 4px;
     color: gray;
     text-decoration: none;

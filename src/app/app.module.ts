@@ -27,7 +27,9 @@ import {SearchPageModule} from "../pages/search/search.module";
 // import {Device} from "@ionic-native/device";
 
 // import { InViewportModule, WindowRef} from "@thisissoon/angular-inviewport";
-import { InformacionGeneral } from '../providers/informacionGeneral/informacionGeneral';
+import { InformacionGeneralProvider } from '../providers/informacionGeneral/informacionGeneral';
+import { EvaluacionCulturalProvider } from '../providers/evaluacionCultural/evaluacionCultural';
+import { EstadoTecnicoConstructivoProvider } from '../providers/estadoTecnicoConstructivo/estadoTecnicoConstructivo';
 // const providers = [
 //   { provide: WindowRef, useValue: window }
 // ];
@@ -64,11 +66,11 @@ import { InformacionGeneral } from '../providers/informacionGeneral/informacionG
     DatabaseProvider,
     SQLite,
     SQLitePorter,
-    // NativePageTransitions,
-    // File,
-    // ScreenOrientation,
-    // InViewportModule,
-    InformacionGeneral
+    InformacionGeneralProvider,
+    EvaluacionCulturalProvider,
+    EstadoTecnicoConstructivoProvider,
+    
+
 
   ]
 

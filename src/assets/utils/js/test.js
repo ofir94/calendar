@@ -1,0 +1,1 @@
+var testvar = "Hello from test.js";

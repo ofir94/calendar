@@ -7,7 +7,7 @@ INSERT INTO elemento_constructivo VALUES ('Escaleras y rampas', 4);
 INSERT INTO elemento_constructivo VALUES ('Cerramientos', 5);
 INSERT INTO elemento_constructivo VALUES ('Voladizos y elementos singulares', 6);
 
-CREATE TABLE estado_tecnico_constructivo (id_etc  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,elem_construct  TEXT,caract_mater  TEXT,modif  TEXT,lesiones  TEXT,localizacion  TEXT,buen_estado  REAL,leve  REAL,grave  REAL,muy_grave  REAL,CONSTRAINT fkey0 FOREIGN KEY (elem_construct) REFERENCES elemento_constructivo (id_ec));
+CREATE TABLE estado_tecnico_constructivo (id_etc  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,elem_construct  INTEGER,caract_mater  TEXT,modif  TEXT,lesiones  TEXT,localizacion  TEXT,buen_estado  REAL,leve  REAL,grave  REAL,muy_grave  REAL,CONSTRAINT fkey0 FOREIGN KEY (elem_construct) REFERENCES elemento_constructivo (id_ec));
 
 CREATE TABLE evaluacion_cultural (id_evaluacion_cultural  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,categoria  INTEGER,criterio  INTEGER,info_recogida  TEXT,evaluacion  INTEGER,CONSTRAINT fkey0 FOREIGN KEY (categoria) REFERENCES evaluacion_cultural_categoria (id_eval_cult_categoria),CONSTRAINT fkey1 FOREIGN KEY (criterio) REFERENCES evaluacion_cultural_criterio (id_eval_cult_criterio),CONSTRAINT fkey2 FOREIGN KEY (evaluacion) REFERENCES evaluacion_cultural_evaluacion (id_eval_cult_evaluacion));
 
@@ -34,6 +34,8 @@ INSERT INTO evaluacion_cultural_evaluacion VALUES (2, 'Bien');
 INSERT INTO evaluacion_cultural_evaluacion VALUES (3, 'Regular');
 INSERT INTO evaluacion_cultural_evaluacion VALUES (4, 'Pobre');
 
-CREATE TABLE informacion_general (id_info_general  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,nombre  TEXT,uso_general  TEXT,ordenamiento_urbano  TEXT,direccion  TEXT,num_pisos  INTEGER,uso_actual  TEXT,microlocalizacion  BLOB,croquis  BLOB,img_edificio  BLOB);
+CREATE TABLE informacion_general (id_info_general  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,nombre  TEXT,uso_general  TEXT,ordenamiento_urbano  TEXT,direccion  TEXT,num_pisos  TEXT,uso_actual  TEXT,microlocalizacion  BLOB,croquis  BLOB,img_edificio  BLOB);
 
-INSERT INTO informacion_general VALUES (1, 18494, 'Casa', 'Vivienda unifamiliar', null, 'Campanario 769 e/ Maloja y Sitios ', null, 'Vivienda unifamiliar', null, null, null);
+INSERT INTO informacion_general VALUES (1, 18494, '', 'Vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 769 e/ Maloja y Sitios ', '1 nivel', 'Vivienda unifamiliar', null, null, null);
+INSERT INTO informacion_general VALUES (2, 8453, '', 'Servicio en planta baja y vivienda en segundo piso', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Sitios 172 e/ Campanario y Manrique ', '2 niveles', 'Edificio de vivienda', null, null, null);
+INSERT INTO informacion_general VALUES (3, 8383, 'Círculo Infantil Nené Traviesa', 'Edificio de vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 761 e/ Maloja y Sitios ', '2 niveles (Popiedad horizontal)', 'Edificio de viviendas', null, null, null);

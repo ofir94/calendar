@@ -2,7 +2,7 @@ import { Component, Inject, forwardRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {DatabaseProvider} from "../../providers/database/database";
 
-import * as $ from "jquery";
+// import * as $ from "jquery";
 // import {ReservationProvider} from "../../providers/reservation/reservation";
 // import {RoomProvider} from "../../providers/room/room";
 
@@ -110,8 +110,8 @@ export class AddEventPage {
   }
 
   pintar_nav(style,value){
-    $("#navbar_evento").attr('class','toolbar toolbar-md');
-    $("#navbar_evento").addClass('toolbar-md-'+style);
+    // $("#navbar_evento").attr('class','toolbar toolbar-md');
+    // $("#navbar_evento").addClass('toolbar-md-'+style);
     this.event.status = value;
     AddEventPage.style = style;
 

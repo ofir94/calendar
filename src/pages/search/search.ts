@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {DatabaseProvider} from "../../providers/database/database";
-import { InformacionGeneral } from '../../providers/informacionGeneral/informacionGeneral';
+import { InformacionGeneralProvider } from '../../providers/informacionGeneral/informacionGeneral';
 import {TabPage} from "../tab/tab";
+import { EvaluacionCulturalProvider } from '../../providers/evaluacionCultural/evaluacionCultural';
+import { EstadoTecnicoConstructivoProvider } from '../../providers/estadoTecnicoConstructivo/estadoTecnicoConstructivo';
 
 /**
  * Generated class for the SearchPage page.
@@ -24,19 +26,24 @@ export class SearchPage {
   filterInformacionGeneral = [];
   allInnformacionGeneral = [];
 
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public viewCtrl : ViewController,
               public databaseProvider : DatabaseProvider,
               private alertCtrl:AlertController,
-              public ionformacionGeneral : InformacionGeneral,
+              public ionformacionGeneralProvider : InformacionGeneralProvider,
+              public evaluacionCulturalProvider : EvaluacionCulturalProvider,
+              public estadoTecnicoConstructivoProvider : EstadoTecnicoConstructivoProvider,
+              
+
 
   ) {
 
 
 
-    this.allInnformacionGeneral = this.ionformacionGeneral.allInnformacionGeneral;
-    this.databaseProvider.loadPage = "SearchPage";
+    this.allInnformacionGeneral = this.ionformacionGeneralProvider.allInformacionGeneral;
+    // this.databaseProvider.loadPage = "SearchPage";
 
     this.initializeItems();
   }
@@ -55,7 +62,9 @@ export class SearchPage {
 
 
   initializeItems() {
-    this.filterInformacionGeneral = this.ionformacionGeneral.allInnformacionGeneral;
+    this.filterInformacionGeneral = this.ionformacionGeneralProvider.allInformacionGeneral;
+    alert("initializeItems()");
+    alert(this.filterInformacionGeneral[0]);
   }
 
   getItems(ev: any) {
@@ -70,7 +79,7 @@ export class SearchPage {
   
       let tmp = [];
       for(let info of this.allInnformacionGeneral){
-        if( this.getInformacionGeneralName(info.id_info_general).toLowerCase().indexOf(val.toLowerCase()) > -1){
+        if( (info.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1 ) || (info.direccion.toLowerCase().indexOf(val.toLowerCase()) > -1)){ //No busca bien x direccion
           tmp.push(info)
         }
       }
@@ -83,7 +92,11 @@ export class SearchPage {
   }
   
   getInformacionGeneralName(id){
-    return this.ionformacionGeneral.getInformacionGeneralName(id);
+    return this.ionformacionGeneralProvider.getInformacionGeneralName(id);
+  }
+
+  getInformacionGeneralDireccion(id){
+    return this.ionformacionGeneralProvider.getInformacionGeneralDireccion(id);
   }
 
 
@@ -199,37 +212,56 @@ export class SearchPage {
   // }
 
   
-
  
-  viewInformacionGeneral(reservation){ //Aqui poner la info general
+ 
+  viewInformacionGeneral(info){ //Aqui poner la info general
   alert("Info de general");
-  //   this.reservationProvider.reserva.id_reservation = reservation.id_reservation;
-  //   this.reservationProvider.reserva.from_date = reservation.from_date;
-  //   this.reservationProvider.reserva.to_date = reservation.to_date;
-  //   this.reservationProvider.reserva.cantKid = reservation.cant_kid;
-  //   this.reservationProvider.reserva.cantAdult = reservation.cant_adult;
-  //   this.reservationProvider.reserva.location = reservation.id_room;
-  //   this.reservationProvider.reserva.status = reservation.status;
-  //   this.reservationProvider.reserva.price = reservation.price;
-  //   this.reservationProvider.reserva.deposit = reservation.deposit;
-  //   this.reservationProvider.reserva.id_client = reservation.id_client;
-  //   this.reservationProvider.reserva.cant_bed_single = reservation.cant_bed_single;
-  //   this.reservationProvider.reserva.cant_bed_double = reservation.cant_bed_double;
-  //   this.reservationProvider.reserva.comment = reservation.comment;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.id_info_general = info.id_info_general;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela = info.fk_parcela;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.nombre = info.nombre;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.uso_general = info.uso_general;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.direccion = info.direccion;
+    this.ionformacionGeneralProvider.ionforamcionGeneral.num_pisos = info.num_pisos;
 
-  //   let client = this.clientProvider.getClientById(this.reservationProvider.reserva.id_client);
+    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.id_info_general);
+    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.nombre);
+    alert( this.ionformacionGeneralProvider.ionforamcionGeneral.uso_general);
 
-  //   this.clientProvider.client.id_client = client.id_client;
-  //   this.clientProvider.client.name = client.name;
-  //   this.clientProvider.client.address = client.address;
-  //   this.clientProvider.client.address2 = client.address2;
-  //   this.clientProvider.client.state = client.state;
-  //   this.clientProvider.client.postal_code = client.postal_code;
-  //   this.clientProvider.client.country = client.country;
-  //   this.clientProvider.client.passport = client.passport;
-  //   this.clientProvider.client.identification = client.identification;
-  //   this.clientProvider.client.phone = client.phone;
-  //   this.clientProvider.client.email = client.email;
+    // let evaluacionCultural = this.evaluacionCulturalProvider.getEvaluacionCulturalByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+
+    // //esto esta de mas pq getEvaluacionCulturalByFK(fk) ya le da valor a evaluacionCultural
+    // this.evaluacionCulturalProvider.evaluacionCultural.id_evaluacion_cultural = evaluacionCultural.id_evaluacion_cultural;
+    // this.evaluacionCulturalProvider.evaluacionCultural.fk_parcela = evaluacionCultural.fk_parcela;
+    // this.evaluacionCulturalProvider.evaluacionCultural.categoria = evaluacionCultural.categoria;
+    // this.evaluacionCulturalProvider.evaluacionCultural.criterio = evaluacionCultural.criterio;
+    // this.evaluacionCulturalProvider.evaluacionCultural.info_recogida = evaluacionCultural.info_recogida;
+    // this.evaluacionCulturalProvider.evaluacionCultural.evaluacion = evaluacionCultural.evaluacion;
+
+    // alert(this.evaluacionCulturalProvider.evaluacionCultural.id_evaluacion_cultural);
+    // alert(this.evaluacionCulturalProvider.evaluacionCultural.fk_parcela);
+    // alert(this.evaluacionCulturalProvider.evaluacionCultural.categoria);
+    // alert(this.evaluacionCulturalProvider.evaluacionCultural.criterio);
+   
+    // let estadoTecnicoConstructivo = this.estadoTecnicoConstructivoProvider.getEstadoTecnicoConstructivoByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.id_etc = estadoTecnicoConstructivo.id_etc;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.fk_parcela = estadoTecnicoConstructivo.fk_parcela;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.elem_construct = estadoTecnicoConstructivo.elem_construct;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.caract_mater = estadoTecnicoConstructivo.caract_mater;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.modif = estadoTecnicoConstructivo.modif;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.lesiones = estadoTecnicoConstructivo.lesiones;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.localizacion = estadoTecnicoConstructivo.localizacion;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.buen_estado = estadoTecnicoConstructivo.buen_estado;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.leve = estadoTecnicoConstructivo.leve;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.grave = estadoTecnicoConstructivo.grave;
+    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.muy_grave = estadoTecnicoConstructivo.muy_grave;
+
+    // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.id_etc);
+    // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.fk_parcela);
+    // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.elem_construct);
+    // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.caract_mater);
+
 
   //   this.navCtrl.push(TabPage);
 

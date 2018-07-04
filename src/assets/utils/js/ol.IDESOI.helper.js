@@ -320,18 +320,18 @@ function OpenLayersInit(mapID, mapExtent, centerPosition, zoomLevel, geocodeCont
 	// 				var id_parcela = feature.id.toString().split('.',2)[1];
 	// 				// console.log(id.split('.',2));
 
-	// 				var masInfo = document.getElementById('popupMasInfo').innerHTML;
-	// 				console.log(masInfo);
+	// 				// var masInfo = document.getElementById('popupMasInfo').innerHTML;
+	// 				// console.log(masInfo);
 	// 				var props = feature.properties;
 	// 				var info = "<br>"+
-	// 					"<p>"+"Consejo Popular:" + props.CONSEJO +"</p>" +
-	// 					"<p>"+"Ubit-Lote:" + props.UBIT_L + "</p>"+
-	// 					"<p>"+"Uso:" + props.USO_NUEVO + "</p>"+
-	// 					"<p>"+"Area:" + props.AREA +"m2"+ "</p>"+
-	// 					"<p>"+"Cantidad de Plantas:" + props.NO_PLANTAS + "</p>"+
-	// 					"<p>"+"Acceso principal:" + props.ACCESO_PRI + "</p>"+
-	// 					"<p>"+"Acceso secundario:" + props.ACCESO_SEC + "</p>"+
-	// 					"<p>"+"Entrecalles:" + props.ENTRECALLE + "</p>"+
+	// 					"<p>"+"Consejo Popular:" + props.CONSEJO +"</p>" + "<br>" +
+	// 					"<p>"+"Ubit-Lote:" + props.UBIT_L + "</p>"+  "<br>" +
+	// 					"<p>"+"Uso:" + props.USO_NUEVO + "</p>"+ "<br>" +
+	// 					"<p>"+"Area:" + props.AREA +"m2"+ "</p>"+"<br>" +
+	// 					"<p>"+"Cantidad de Plantas:" + props.NO_PLANTAS + "</p>"+ "<br>" +
+	// 					"<p>"+"Acceso principal:" + props.ACCESO_PRI + "</p>"+ "<br>" +
+	// 					"<p>"+"Acceso secundario:" + props.ACCESO_SEC + "</p>"+ "<br>" +
+	// 					"<p>"+"Entrecalles:" + props.ENTRECALLE + "</p>"+ "<br>" +
 	// 					"<p>"+"Id:" +id_parcela + "</p>";
 	// 					// "<a onclick=alert('Hola')>" + 'Mas  infor'+"</a>";
 						

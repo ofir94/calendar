@@ -170,8 +170,8 @@ export class DatabaseProvider {
   }
 
 
-  getInformacionGeneral(id) {
-    let sql = "SELECT * FROM room informacion_general fk_parcela =" + id;
+  getInformacionGeneralByFK(fk) {
+    let sql = "SELECT * FROM room informacion_general fk_parcela =" + fk;
     return this.database.executeSql(sql, []).then(data => {
       let informacion_general;
       if (data.rows.length > 0) {
@@ -195,74 +195,86 @@ export class DatabaseProvider {
     });
   }
 
-  getAllClients() {
+  getAllEvaluacionCultural() {
 
-
-    return this.database.executeSql("SELECT * FROM client", []).then(data => {
-      let clients = [];
+    return this.database.executeSql("SELECT * FROM evaluacion_cultural", []).then(data => {
+      let evaluacion_cultural = [];
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
-          clients.push({
-            id_client: data.rows.item(i).id_client,
-            name: data.rows.item(i).name,
-            address: data.rows.item(i).address,
-            address2: data.rows.item(i).address2,
-            state: data.rows.item(i).state,
-            postal_code: data.rows.item(i).postal_code,
-            country: data.rows.item(i).country,
-            passport: data.rows.item(i).passport,
-            identification: data.rows.item(i).identification,
-            phone: data.rows.item(i).phone,
-            email: data.rows.item(i).email,
+          evaluacion_cultural.push({
+            id_evaluacion_cultural: data.rows.item(i).id_evaluacion_cultural,
+            fk_parcela: data.rows.item(i).fk_parcela,
+            categoria: data.rows.item(i).categoria,
+            criterio: data.rows.item(i).criterio,
+            info_recogida: data.rows.item(i).info_recogida,
           });
         }
       }
-      return clients;
+      return evaluacion_cultural;
     }, err => {
       console.log(err);
       return [];
     });
   }
 
-  
 
-
-
-  getAllReservation() {
-
-    return this.database.executeSql("SELECT * FROM reservation", []).then(data => {
-      let reservation = [];
+  getAllEstadoTecnicoConstructivo() {
+    
+    return this.database.executeSql("SELECT * FROM estado_tecnico_constructivo", []).then(data => {
+      let estado_tecnico_constructivo = [];
 
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
 
-          reservation.push({
-            id_reservation: data.rows.item(i).id_reservation,
-            from_date: data.rows.item(i).from_date,
-            to_date: data.rows.item(i).to_date,
-            cant_adult: data.rows.item(i).cant_adult,
-            cant_kid: data.rows.item(i).cant_kid,
-            price: data.rows.item(i).price,
-            deposit: data.rows.item(i).deposit,
-            comment: data.rows.item(i).comment,
-            cant_bed_single: data.rows.item(i).cant_bed_single,
+          estado_tecnico_constructivo.push({
+            id_etc: data.rows.item(i).id_etc,
+            fk_parcela: data.rows.item(i).fk_parcela,
+            elem_construct: data.rows.item(i).elem_construct,
+            caract_mater: data.rows.item(i).caract_mater,
+            modif: data.rows.item(i).modif,
+            lesiones: data.rows.item(i).lesiones,
+            localizacion: data.rows.item(i).localizacion,
+            buen_estado: data.rows.item(i).buen_estado,
+            leve: data.rows.item(i).leve,
             cant_bed_double: data.rows.item(i).cant_bed_double,
-            id_room: data.rows.item(i).id_room,
-            status: data.rows.item(i).status,
-            id_client: data.rows.item(i).id_client,
-            limpieza:data.rows.item(i).limpieza,
-            tarea:data.rows.item(i).tarea
+            grave: data.rows.item(i).grave,
+            muy_grave: data.rows.item(i).muy_grave,
+            
           });
         }
       }
-      return reservation;
+      return estado_tecnico_constructivo;
     }, err => {
       console.log(err);
       return [];
     });
   }
 
-  
+  getEvaluacionCulturalByFK(fk){
+
+    let sql = "SELECT * FROM room evaluacion_cultural fk_parcela =" + fk;
+    return this.database.executeSql(sql, []).then(data => {
+      let evaluacion_cultural;
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          evaluacion_cultural.push({
+            id_evaluacion_cultural: data.rows.item(i).id_evaluacion_cultural,
+            fk_parcela: data.rows.item(i).fk_parcela,
+            categoria: data.rows.item(i).categoria,
+            criterio: data.rows.item(i).criterio,
+            info_recogida: data.rows.item(i).info_recogida,
+            evaluacion: data.rows.item(i).evaluacion,
+
+          });
+        }
+      }
+      return evaluacion_cultural;
+    }, err => {
+      console.log(err);
+      return [];
+    });
+  }
+
 
   getAllStatus() {
     return this.database.executeSql("SELECT * FROM reservation_status", []).then(data => {
