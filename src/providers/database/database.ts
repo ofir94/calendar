@@ -42,6 +42,10 @@ export class DatabaseProvider {
               this.fillDatabase();
             }
           })
+        })
+        .catch(e => {
+          alert("constructor de database provider")
+          alert(e.message)
         });
     });
   }
@@ -56,8 +60,8 @@ export class DatabaseProvider {
             this.storage.set('database_filled', true);
           })
           .catch(e => {
-            console.log("database")
-            console.log(e.message)
+            alert("fillDatabase()")
+            alert(e.message)
           });
       })
   }
@@ -162,9 +166,12 @@ export class DatabaseProvider {
           });
         }
       }
+      alert('informacion_general');
+      alert(informacion_general);
+     
       return informacion_general;
     }, err => {
-      console.log(err);
+      alert(err);
       return [];
     });
   }

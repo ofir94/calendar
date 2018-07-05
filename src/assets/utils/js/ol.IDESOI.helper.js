@@ -385,8 +385,11 @@ function OpenLayersInit(mapID, mapExtent, centerPosition, zoomLevel, geocodeCont
 					type: 'GET',
 				}).success(function (data) {
 					var feature = data.features[0];
-					console.log(data);
-					id_parcela = feature.id.toString().split('.',2)[1];
+					// console.log(data);
+					if(feature.id != null){
+						id_parcela = feature.id.toString().split('.',2)[1];
+					}
+					
 					// console.log(id.split('.',2));
 
 					var props = feature.properties;
