@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <!--<ion-navbar id="navbar_evento" color="falta_pago">-->
+  <ion-navbar >
     <!--<ion-title>{{rooms.location}}</ion-title>-->
     <!--&lt;!&ndash;<button ion-button outline item-end icon-left>&ndash;&gt;-->
 
@@ -21,9 +21,105 @@
   <!--</ion-buttons>-->
 
 
-  <!--</ion-navbar>-->
+  </ion-navbar>
 
 </ion-header>
-<ion-content>
+<ion-content padding>
+
+    <form >
+      <ion-list>
+
+        <ion-item>
+          <ion-label floating >Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]="ionforamcionGeneral.nombre" name="ionforamcionGeneral.nombre" >
+          </ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label floating >Uso general</ion-label>
+          <ion-input type="text" [(ngModel)]="ionforamcionGeneral.uso_general" name="ionforamcionGeneral.uso_general" >
+          </ion-input>
+        </ion-item>
+
+          <ion-item>
+            <ion-label floating >Dirección</ion-label>
+            <ion-input type="text" [(ngModel)]="ionforamcionGeneral.direccion" name="ionforamcionGeneral.direccion" >
+            </ion-input>
+          </ion-item>
+
+            <ion-item>
+              <ion-label floating >Número de pisos</ion-label>
+              <ion-input type="text" [(ngModel)]="ionforamcionGeneral.num_pisos" name="ionforamcionGeneral.num_pisos" >
+              </ion-input>
+            </ion-item>
+
+          <ion-list>
+
+            <ion-list-header>
+              <h2>Microlocalización</h2>
+            </ion-list-header>
+
+            <ion-item>
+              <p><img src={{base64Image}}/></p>
+            </ion-item>
+            
+            <ion-item>
+              <button ion-button full (click)="openCamera()">Tomar foto</button>
+            </ion-item>
+            <ion-item>
+              <button ion-button full (click)="cargarfoto()">Cargar foto</button>
+            </ion-item>
+
+          <ion-list>
+            <ion-list>
+
+            <ion-list-header>
+              <h2>Microlocalización</h2>
+            </ion-list-header>
+
+            <ion-item>
+              <p><img src={{base64Image}}/></p>
+            </ion-item>
+            
+            <ion-item>
+              <button ion-button full (click)="openCamera()">Tomar foto</button>
+            </ion-item>
+            <ion-item>
+              <button ion-button full (click)="cargarfoto()">Cargar foto</button>
+            </ion-item>
+
+          <ion-list>
+            <ion-list>
+
+            <ion-list-header>
+              <h2>Microlocalización</h2>
+            </ion-list-header>
+
+            <ion-item>
+              <p><img src={{base64Image}}/></p>
+            </ion-item>
+            
+            <ion-item>
+              <button ion-button full (click)="openCamera()">Tomar foto</button>
+            </ion-item>
+            <ion-item>
+              <button ion-button full (click)="cargarfoto()">Cargar foto</button>
+            </ion-item>
+
+          <ion-list>
+      </ion-list>
+     
+    </form>
 
 </ion-content>
+
+
+<!-- <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-icon md="md-eye" item-end style="color:gray;"></ion-icon>
+        Space
+      </ion-item>
+    </ion-list>
+  </ion-card> -->
+  

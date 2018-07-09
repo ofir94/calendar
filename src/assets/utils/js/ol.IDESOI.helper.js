@@ -145,7 +145,7 @@ function OpenLayersInit(mapID, mapExtent, centerPosition, zoomLevel, geocodeCont
 	
 
 
-	$('#olmap').attr('name','Ramon');
+	
 
 
     var mapLayers = new ol.layer.Tile({
@@ -394,15 +394,15 @@ function OpenLayersInit(mapID, mapExtent, centerPosition, zoomLevel, geocodeCont
 
 					var props = feature.properties;
 					var info = "<br>"+
-						"<p>"+"Consejo Popular:" + props.CONSEJO +"</p>" +
-						"<p>"+"Ubit-Lote:" + props.UBIT_L + "</p>"+
-						"<p>"+"Uso:" + props.USO_NUEVO + "</p>"+
-						"<p>"+"Area:" + props.AREA +"m2"+ "</p>"+
-						"<p>"+"Cantidad de Plantas:" + props.NO_PLANTAS + "</p>"+
-						"<p>"+"Acceso principal:" + props.ACCESO_PRI + "</p>"+
-						"<p>"+"Acceso secundario:" + props.ACCESO_SEC + "</p>"+
-						"<p>"+"Entrecalles:" + props.ENTRECALLE + "</p>"+
-						"<p>"+"Id:" +id_parcela + "</p>";
+						"<p style class='list-group-item'>"+"Consejo Popular:" + props.CONSEJO +"</p>" +
+						"<p style='background: beige;' class='list-group-item'>"+"Ubit-Lote:" + props.UBIT_L + "</p>"+
+						"<p  class='list-group-item'>"+"Uso:" + props.USO_NUEVO + "</p>"+
+						"<p style='background: beige;' class='list-group-item'>"+"Area:" + props.AREA +"m2"+ "</p>"+
+						"<p  class='list-group-item'>"+"Cantidad de Plantas:" + props.NO_PLANTAS + "</p>"+
+						"<p style='background: beige;' class='list-group-item'>"+"Acceso principal:" + props.ACCESO_PRI + "</p>"+
+						"<p class='list-group-item'>"+"Acceso secundario:" + props.ACCESO_SEC + "</p>"+
+						"<p style='background: beige;' class='list-group-item'>"+"Entrecalles:" + props.ENTRECALLE + "</p>"
+						// "<p>"+"Id:" +id_parcela + "</p>";
 						// "<a (click)='crear_evento()'>" + 'Mas  infor'+"</a>";
 						
 

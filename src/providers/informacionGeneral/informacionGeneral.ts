@@ -53,6 +53,13 @@ export class InformacionGeneralProvider {
 
   }
 
+
+  getAllInformacionGeneral(){
+    this.databaseProvider.getAllInformacionGeneral().then(data => {
+      this.allInformacionGeneral = data;
+
+    });
+  }
   informacionInitStatic(){
 
     this.allInformacionGeneral = [
@@ -138,15 +145,15 @@ export class InformacionGeneralProvider {
 
   }
 //Desde la bd
-  getAllInformacionGeneral(){
+  // getAllInformacionGeneral(){
 
-    this.databaseProvider.getAllInformacionGeneral().then(data => {
-      this.allInformacionGeneral = data;
+  //   this.databaseProvider.getAllInformacionGeneral().then(data => {
+  //     this.allInformacionGeneral = data;
      
-      alert('getAllInformacionGeneral() en informacionGeneral.ts');
-      alert(data[0]);
-    });
-  }
+  //     alert('getAllInformacionGeneral() en informacionGeneral.ts');
+  //     alert(this.allInformacionGeneral[0]);
+  //   });
+  // }
 
 //Desde la bd
 
@@ -246,22 +253,16 @@ export class InformacionGeneralProvider {
 
 
 
+  getEstadoTecnicoConstructivoByFK(fk){
   
+  }
 
-
-  // loadCleaningData(){
-  //   this.databaseProvider.getAllCleaning().then(data => {
-  //     this.frequencys = data;
-
-  //   });
-
-  // }
-
-  // loadFixedDayProfile(){
-  //   this.databaseProvider.getProfile().then(data => {
-  //     this.frequencys = data;
-
-  //   });
-  // }
-
+  getInformacionGeneralByFK(fk){
+    let result;
+    this.databaseProvider.getInformacionGeneralByFK(fk).then(data => {
+      this.ionforamcionGeneral = data;
+      result = data;
+    });
+    return result;
+  }
 }

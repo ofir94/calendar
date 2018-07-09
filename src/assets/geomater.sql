@@ -34,8 +34,8 @@ INSERT INTO evaluacion_cultural_evaluacion VALUES (2, 'Bien');
 INSERT INTO evaluacion_cultural_evaluacion VALUES (3, 'Regular');
 INSERT INTO evaluacion_cultural_evaluacion VALUES (4, 'Pobre');
 
-CREATE TABLE informacion_general (id_info_general  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,nombre  TEXT,uso_general  TEXT,ordenamiento_urbano  TEXT,direccion  TEXT,num_pisos  TEXT,uso_actual  TEXT,microlocalizacion  BLOB,croquis  BLOB,img_edificio  BLOB);
+CREATE TABLE informacion_general (id_info_general  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,fk_parcela  INTEGER,nombre  TEXT,uso_general  TEXT,ordenamiento_urbano  TEXT,direccion  TEXT,num_pisos  TEXT,uso_actual  TEXT);
 
-INSERT INTO informacion_general VALUES (1, 18494, '', 'Vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 769 e/ Maloja y Sitios ', '1 nivel', 'Vivienda unifamiliar', null, null, null);
-INSERT INTO informacion_general VALUES (2, 8453, '', 'Servicio en planta baja y vivienda en segundo piso', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Sitios 172 e/ Campanario y Manrique ', '2 niveles', 'Edificio de vivienda', null, null, null);
-INSERT INTO informacion_general VALUES (3, 8383, 'Círculo Infantil Nené Traviesa', 'Edificio de vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 761 e/ Maloja y Sitios ', '2 niveles (Popiedad horizontal)', 'Edificio de viviendas', null, null, null);
+INSERT INTO informacion_general VALUES (1, 18494, '', 'Vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 769 e/ Maloja y Sitios ', '1 nivel', 'Vivienda unifamiliar');
+INSERT INTO informacion_general VALUES (2, 8453, '', 'Servicio en planta baja y vivienda en segundo piso', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Sitios 172 e/ Campanario y Manrique ', '2 niveles', 'Edificio de vivienda');
+INSERT INTO informacion_general VALUES (3, 8383, 'Círculo Infantil Nené Traviesa', 'Edificio de vivienda unifamiliar', 'A: Urbanización Total: Zona Urbana conformada por Manzanas compactas', 'Campanario 761 e/ Maloja y Sitios ', '2 niveles (Popiedad horizontal)', 'Edificio de viviendas');

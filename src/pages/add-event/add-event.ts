@@ -1,6 +1,8 @@
 import { Component, Inject, forwardRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {DatabaseProvider} from "../../providers/database/database";
+import { InformacionGeneralProvider } from '../../providers/informacionGeneral/informacionGeneral';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // import * as $ from "jquery";
 // import {ReservationProvider} from "../../providers/reservation/reservation";
@@ -21,51 +23,42 @@ import {DatabaseProvider} from "../../providers/database/database";
 })
 export class AddEventPage {
 
-  developer = {};
-
+  base64Image:any;
   // private reservationProvider : ReservationProvider;
   // private roomProvider : RoomProvider;
 
-  event = { id_reservation: 0,
-            from_date: '',
-            to_date: '',
-            cantKid: '',
-            cantAdult: 1,
-            location: '',
-            status: '',
-            price: 0,
-            deposit: 0,
-            id_client: '',
-            cant_bed_single: 0 ,
-            cant_bed_double: 0,
-            comment: '',
-            id_room: 0,
-            tarea: ''
-          };
- startDate;
+  informacionGeneral = { 
+                            
+  };
+ 
+  ionforamcionGeneral = {
+    id_info_general: 0,
+    fk_parcela: 0,
+    nombre: '',
+    uso_general: "",
+    direccion: "",
+    num_pisos: ''
+};
 
-
-  room = {id_room : '',name : '',cant_people: 0,cant_bed_aditional: 0,cant_bed_single: 0,cant_bed_double : 0,view_order:0}
-  rooms = [];
   selectOptions;
-  static style = 'falta_pago';
 
   //Checked
-  falta_pago_checked = true;
-  deposito_pagado_checked = false;
-  totalmente_pagado_checked = false;
-  cancelado_checked = false;
-  no_disponible_checked = false;
+
 
   constructor(
               public navCtrl: NavController,
               public navParams: NavParams,
               private databaseProvider: DatabaseProvider,
+              private informacionGeneralProvider: InformacionGeneralProvider,
+              private camera: Camera
               // @Inject(forwardRef(() => RoomProvider)) roomProvider : RoomProvider,
               // @Inject(forwardRef(() => ReservationProvider)) reservationProvider : ReservationProvider,
 
               )
   {
+    this.selectOptions = {//para poder ponerle un evento al ok del alert para poner habitacionn1 como titulo
+    mode: 'md'
+  };
 
     // this.roomProvider = roomProvider;
     // this.reservationProvider= reservationProvider;
@@ -98,109 +91,59 @@ export class AddEventPage {
 
     // this.rooms = this.roomProvider.allRooms;
 
-    this.ininicializarEstado();
+    this.ininicializarInformacionGeneral();
+    this.informacionGeneralProvider.ionforamcionGeneral = this.ionforamcionGeneral;
 
   }
 
 
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddEventPage');
+  ininicializarInformacionGeneral(){
+    this.ionforamcionGeneral.id_info_general = this.informacionGeneralProvider.ionforamcionGeneral.id_info_general;
+    this.ionforamcionGeneral.fk_parcela= this.informacionGeneralProvider.ionforamcionGeneral.fk_parcela;
+    this.ionforamcionGeneral.nombre= this.informacionGeneralProvider.ionforamcionGeneral.nombre;
+    this.ionforamcionGeneral.uso_general= this.informacionGeneralProvider.ionforamcionGeneral.uso_general;
+    this.ionforamcionGeneral.direccion= this.informacionGeneralProvider.ionforamcionGeneral.direccion;
+    this.ionforamcionGeneral.num_pisos= this.informacionGeneralProvider.ionforamcionGeneral.num_pisos;
+  
   }
 
-  pintar_nav(style,value){
-    // $("#navbar_evento").attr('class','toolbar toolbar-md');
-    // $("#navbar_evento").addClass('toolbar-md-'+style);
-    this.event.status = value;
-    AddEventPage.style = style;
+ openCamera(){
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
+  
+  this.camera.getPicture(options).then((imageData) => {
+   // imageData is either a base64 encoded string or a file URI
+   // If it's base64 (DATA_URL):
+   this.base64Image = 'data:image/jpeg;base64,' + imageData;
+  }, (err) => {
+   // Handle error
+  });
+ }
 
+ cargarfoto(){
+
+
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    saveToPhotoAlbum:false
 
   }
+  
+  this.camera.getPicture(options).then((imageData) => {
+   // imageData is either a base64 encoded string or a file URI
+   // If it's base64 (DATA_URL):
+   this.base64Image = 'data:image/jpeg;base64,' + imageData;
+  }, (err) => {
+   // Handle error
+  });
+ }
 
-
-  calcularPrecio() {
-
-    // document.getElementById("precioFinal").setAttribute("ng-reflect-model", "5");
-    let start = new Date(new Date(this.event.from_date).getTime()+1*24*60*60*1000);
-    let end = new Date(new Date(this.event.to_date).getTime()+1*24*60*60*1000);
-
-
-
-
-
-  }
-
-  //VALIDACION
-  // buildForm() {
-  //   this.formularioEvento = this.fb.group({
-  //     precio:['',[Validators.required,Validators.maxLength(30)]],
-  //
-  //   });
-  // }
-
-
-  // ESTATICO
-  // getAllRooms(){
-  //   let room1 =  {id: '1', name:'room1'}
-  //   let room2 =  {id: '2', name:'room2'};
-  //   this.rooms = [room1,room2];
-  //
-  // }
-  // ESTATICO
-
-
-  ininicializarEstado(){
-    if(this.event.status == "1"){
-      this.falta_pago_checked = true;
-      this.deposito_pagado_checked= false;
-      this.totalmente_pagado_checked = false;
-      this.cancelado_checked = false;
-      this.no_disponible_checked = false;
-
-
-      this.pintar_nav('falta_pago',this.event.status);
-
-    }
-    if(this.event.status == "2"){
-      this.falta_pago_checked = false;
-      this.deposito_pagado_checked= true;
-      this.totalmente_pagado_checked = false;
-      this.cancelado_checked = false;
-      this.no_disponible_checked = false;
-
-
-
-      this.pintar_nav('deposito_pagado',this.event.status);
-
-    }
-    if(this.event.status == "3"){
-      this.falta_pago_checked = false;
-      this.deposito_pagado_checked= false;
-      this.totalmente_pagado_checked = true;
-      this.cancelado_checked = false;
-      this.no_disponible_checked = false;
-      this.pintar_nav('secondary',this.event.status);
-
-    }
-    if(this.event.status == "4"){
-      this.falta_pago_checked = false;
-      this.deposito_pagado_checked= false;
-      this.totalmente_pagado_checked = false;
-      this.cancelado_checked = true;
-      this.no_disponible_checked = false;
-      this.pintar_nav('cancelado',this.event.status);
-
-    }
-    if(this.event.status == "5"){
-      this.falta_pago_checked = false;
-      this.deposito_pagado_checked= false;
-      this.totalmente_pagado_checked = false;
-      this.cancelado_checked = false;
-      this.no_disponible_checked = true;
-      this.pintar_nav('danger',this.event.status);
-
-    }
-
-  }
+  
 }

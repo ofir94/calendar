@@ -11,6 +11,7 @@ import { DatabaseProvider } from '../database/database';
 @Injectable()
 export class EstadoTecnicoConstructivoProvider {
   allEstadoTecnicoConstructivo = [];
+  allEstadoTecnicoConstructivoParaUnEdificio =[];
 
   estadoTecnicoConstructivo = {
       id_etc: 0,
@@ -20,10 +21,10 @@ export class EstadoTecnicoConstructivoProvider {
       modif: "",
       lesiones: "",
       localizacion: "",
-      buen_estado: "",
+      buen_estado: 0.0,
       leve: 0.0,
       grave: 0.0,
-      muy_grave: 0.0
+      muy_grave: 0.0,
   }
 
   constructor(
@@ -32,9 +33,57 @@ export class EstadoTecnicoConstructivoProvider {
 
   ) 
   {
-
+    // this.estadoTecnicoConstructivoInitStatic();
+    this.getAllEstadoTecnicoConstructivo();
+    
   }
+  estadoTecnicoConstructivoInitStatic(){
+    this.allEstadoTecnicoConstructivo = [
+      {
+        id_etc: 1,
+        fk_parcela: 1,
+        elem_construct: 1,
+        caract_mater: "Balcones de viga y losa. Elementos decorativos de hormigón armado. ",
+        modif: "Transformación de balcones: colocación de celosías de barro. ",
+        lesiones: "Pérdida del color, degradación del soporte, fisuras y grietas, degradación del material, manchas de humedad. Rotura importantes de piezas. Pérdida importante de piezas componentes.",
+        localizacion: "Uniones, remates y salientes, zonas de humedad",
+        buen_estado: 0.0,
+        leve: 0.0,
+        grave: 0.0,
+        muy_grave: 0.0,
 
+      }, 
+      {
+        id_etc: 2,
+        fk_parcela: 1,
+        elem_construct: 2,
+        caract_mater: "",
+        modif: "",
+        lesiones: "",
+        localizacion: "",
+        buen_estado: 0.0,
+        leve: 0.0,
+        grave: 0.0,
+        muy_grave: 0.0,
+
+      }, 
+      {
+        id_etc: 3,
+        fk_parcela: 1,
+        elem_construct: 3,
+        caract_mater: "",
+        modif: "",
+        lesiones: "",
+        localizacion: "",
+        buen_estado: 0.0,
+        leve: 0.0,
+        grave: 0.0,
+        muy_grave: 0.0,
+
+      }
+      
+    ];
+  }
   getAllEstadoTecnicoConstructivo(){
     this.databaseProvider.getAllEstadoTecnicoConstructivo().then(data => {
       this.allEstadoTecnicoConstructivo = data;
@@ -44,10 +93,24 @@ export class EstadoTecnicoConstructivoProvider {
 
   getEstadoTecnicoConstructivoByFK(fk){
     let result;
-    this.databaseProvider.getEvaluacionCulturalByFK(fk).then(data => {
-      this.estadoTecnicoConstructivo = data;
+    this.databaseProvider.getEstadoTecnicoConstructivoByFK(fk).then(data => {
+      this.allEstadoTecnicoConstructivoParaUnEdificio = data;
       result = data;
     });
     return result;
   }
+
+  getEstadoTecnicoConstructivoByFKStatic(fk){
+    let result = [];
+    for(let etc of this.allEstadoTecnicoConstructivo){
+      if(etc.fk_parcela == fk){
+        result.push(etc);
+      }
+    }
+    this.allEstadoTecnicoConstructivoParaUnEdificio = result;
+
+    return result;
+
+}
+
 }

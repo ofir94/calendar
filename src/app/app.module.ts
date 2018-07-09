@@ -30,6 +30,11 @@ import {SearchPageModule} from "../pages/search/search.module";
 import { InformacionGeneralProvider } from '../providers/informacionGeneral/informacionGeneral';
 import { EvaluacionCulturalProvider } from '../providers/evaluacionCultural/evaluacionCultural';
 import { EstadoTecnicoConstructivoProvider } from '../providers/estadoTecnicoConstructivo/estadoTecnicoConstructivo';
+import { EvaluacionCulturalPage } from '../pages/evaluacion-cultural/evaluacion-cultural';
+import { EstadoTecnicoConstructivoPage } from '../pages/estado-tecnico-constructivo/estado-tecnico-constructivo';
+import { ClientePage } from '../pages/cliente/cliente';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 // const providers = [
 //   { provide: WindowRef, useValue: window }
 // ];
@@ -38,6 +43,9 @@ import { EstadoTecnicoConstructivoProvider } from '../providers/estadoTecnicoCon
   declarations: [
     MyApp,
     HomePage,
+    EvaluacionCulturalPage,
+    EstadoTecnicoConstructivoPage,
+    ClientePage
   ],
   imports: [
     BrowserModule,
@@ -52,11 +60,15 @@ import { EstadoTecnicoConstructivoProvider } from '../providers/estadoTecnicoCon
     SearchPageModule,
     // InViewportModule.forRoot(),
     // InViewportModule.forRoot(providers)
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    EvaluacionCulturalPage,
+    EstadoTecnicoConstructivoPage,
+    ClientePage
     
   ],
   providers: [
@@ -69,6 +81,7 @@ import { EstadoTecnicoConstructivoProvider } from '../providers/estadoTecnicoCon
     InformacionGeneralProvider,
     EvaluacionCulturalProvider,
     EstadoTecnicoConstructivoProvider,
+    Camera
     
 
 

@@ -5,11 +5,65 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
+    <ion-navbar >
+        
+    
+      </ion-navbar>
 
 
 </ion-header>
 
 <ion-content padding>
+
+<ion-card  style=" width:auto; margin:0px; margin-bottom: 10px; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -12px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.12);"
+*ngFor="let estadoTecnicoConstructivo of allEstadoTecnicoConstructivo; let i = index">
+      <ion-card-header>
+        <ion-grid>
+          <ion-row>
+            
+            <ion-col col-8  style="padding-top: 15px;">
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 1 ">Cimentación</h2>
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 2 ">Estructura Vertical</h2>
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 3 ">Estructura Horizontal</h2>
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 4 ">Escaleras y rampas</h2>
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 5 ">Cerramientos</h2>
+                <h2 *ngIf="estadoTecnicoConstructivo.elem_construct == 6 ">Voladizos y elementos singulare</h2>
+            </ion-col>
+            <!--<div style="display: inline-block; float: right">-->
+              <ion-buttons end>
+                <button ion-button icon-only style=" box-shadow: none; background: none;float: right; color:gray;border: none;padding-right: 10px;" (click)="eliminarETC(estadoTecnicoConstructivo,i)">
+                  <ion-icon md="md-trash" ></ion-icon>
+                </button>
+                <button (click)="viewEstadoTecnicoConstructivo(estadoTecnicoConstructivo)" ion-button icon-only style="    box-shadow: none;background: none;float: right; color:gray;border: none" >
+                  <ion-icon md="md-eye"></ion-icon>
+                </button>
+              </ion-buttons>
+            <!-- <ion-buttons end>
+               <button (click)="cambiarStatusReserva(reserva.id_reservation)" ion-button icon-only style="    box-shadow: none;background: none;float: right; color:gray;border: none" >
+                 <ion-icon md="md-alert"></ion-icon>
+               </button>
+             </ion-buttons>-->
+            <!--</div>-->
+            <ion-col  style=" float: right">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-header>
+  </ion-card>
   
+  <ion-fab bottom right >
+    <button  ion-fab icon-only color="add" style="width: 40px; height: 40px;" (click)="crearETC()">
+      <ion-icon name="add" style="color:white"></ion-icon>
+    </button>
+  </ion-fab>
+
 </ion-content>
+
+<!-- <ion-card *ngFor="let estadoTecnicoConstructivo of allEstadoTecnicoConstructivo">
+    <button ion-item>
+        
+      <ion-icon md="md-eye" item-end style="color:gray;"></ion-icon>
+      
+
+    </button>
+</ion-card> -->

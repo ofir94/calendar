@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { EvaluacionCulturalProvider } from '../../providers/evaluacionCultural/evaluacionCultural';
+import { EvaluacionCulturalPage } from '../evaluacion-cultural/evaluacion-cultural';
+import { DatabaseProvider } from '../../providers/database/database';
 // import {ClientProvider} from "../../providers/client/client";
 
 /**
@@ -15,33 +18,87 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'cliente.html',
 })
 export class ClientePage {
+  allevaluacionCultural = [];
+  evaluacionCultural ={
 
-  // client ={
-  //   name: this.clientProvider.client.name,
-  //   address: this.clientProvider.client.address,
-  //   address2: this.clientProvider.client.address2,
-  //   postal_code: this.clientProvider.client.postal_code,
-  //   country: this.clientProvider.client.country,
-  //   state: this.clientProvider.client.state,
-  //   passport: this.clientProvider.client.passport,
-  //   identification: this.clientProvider.client.identification,
-  //   phone: this.clientProvider.client.phone,
-  //   email: this.clientProvider.client.email,
-  //   id_client: this.clientProvider.client.id_client
-  // };
+    id_evaluacion_cultural: 0,
+    fk_parcela: 0,
+    categoria: 0,
+    criterio: 0,
+    info_recogida: "",
+    evaluacion: 0
+
+  }
+
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              // private clientProvider : ClientProvider
-            ) {
+              private evaluacionCulturalProvider :EvaluacionCulturalProvider,
+              public modalCtrl: ModalController,
+              public alertCtrl : AlertController,
+              private databaseProvider: DatabaseProvider,
 
-    // this.clientProvider.client = this.client;
+
+
+            ) 
+            
+  {
+
+    this.allevaluacionCultural = this.evaluacionCulturalProvider.allEvaluacionCulturalParaUnEdificio;
+    this.evaluacionCulturalProvider.evaluacionCultural = this.evaluacionCultural;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientePage');
+  viewEvaluacionCultural(evaluacionCultural){
+    alert(evaluacionCultural.id_evaluacion_cultural);
+  let modal = this.modalCtrl.create(EvaluacionCulturalPage);
+
+  this.evaluacionCulturalProvider.evaluacionCultural = evaluacionCultural;
+
+  modal.present();
   }
 
+  crearEC(){
+    let modal = this.modalCtrl.create(EvaluacionCulturalPage);
+    modal.present();
+  
+  }
 
+  eliminarEC(ec,i){
+
+    let alerta = this.alertCtrl.create({
+      title: 'Eliminar',
+      subTitle: "Está seguro que desea eliminar?",
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (data) => {
+            //console.log('cancel')
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) => {
+            this.evaluacionCulturalProvider.allEvaluacionCulturalParaUnEdificio.splice(i,1); 
+  
+  
+            // this.deleteEstadoTecnicoConstructivo(etc.id_etc);
+        
+  
+          }
+        }
+      ]
+    });
+    alerta.present();
+  }
+  
+  deleteEstadoEvaluacionCultural(id_etc){
+    this.databaseProvider.deleteEstadoTecnicoConstructivo(id_etc).then(data => {
+      this.evaluacionCulturalProvider.getAllEvaluacionCultural();
+  
+    });
+  
+  }
 
 }

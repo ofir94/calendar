@@ -1,7 +1,7 @@
 <ion-header>
 
-  <ion-navbar id="navbar_evento" color="falta_pago">
-    <ion-title>Habitación 1</ion-title>
+  <ion-navbar id="navbar_evento" >
+    <ion-title>Información del inmueble</ion-title>
     <ion-buttons start>
       <button ion-button icon-only (click)="save()" >
         <ion-icon md="md-checkbox-outline"></ion-icon>
@@ -11,7 +11,20 @@
 
 </ion-header>
 <ion-tabs>
-    <ion-tab [root]="reservaRoot" tabTitle="Reserva"   tabIcon="md-calendar"></ion-tab>
-    <ion-tab [root]="clienteRoot" tabTitle="Cliente"    tabIcon="person"></ion-tab>
-    <ion-tab [root]="detallesRoot"tabTitle="Detalles" tabIcon="md-list-box"></ion-tab>
+    <ion-tab [root]="reservaRoot" tabTitle="Información general"   tabIcon="md-list-box"></ion-tab>
+    <ion-tab [root]="clienteRoot" tabTitle="Evaluación cultural"    tabIcon="md-ribbon"></ion-tab>
+    <ion-tab [root]="detallesRoot"tabTitle="E. técnico constructivo" tabIcon="md-hammer"></ion-tab>
 </ion-tabs>
+
+<!-- md-camera
+md-image 
+md-information-circle
+md-map
+
+Cultural
+md-medal
+md-ribbon
+md-school
+
+Cultural
+-->

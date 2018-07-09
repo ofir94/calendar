@@ -44,12 +44,12 @@
       </body>
       
 </ion-content>
-<div id="divInfoPopupId" class="divInfoPopup" style="z-index: 1000">
-  <button ion-button (click)="closePopupInfo()" color="light"  style="float: right;height: 2.4rem;width: 1rem;border: none;box-shadow: none;background: transparent;">   
+<div id="divInfoPopupId" class="divInfoPopup" style="z-index: 1000; border-radius: 8%;">
+  <button ion-button (click)="closePopupInfo()" color="light"  style="float: right;height: 2.4rem;width: 1rem;border: none;box-shadow: none;background: transparent; margin-top: 0px">   
   <ion-icon name="close"></ion-icon></button>
      
-<div id="infoPopup">
+<div id="infoPopup" >
 
 </div>
-<div><a (click)='crear_evento()'>Mas  informacion</a></div>
+<div><a class="list-group-item" (click)='verMasInformacion()'>Mas  informacion</a></div>
 </div>

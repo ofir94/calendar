@@ -30,7 +30,8 @@ export class DatabaseProvider {
     this.platform.ready().then(() => {
       this.sqlite.create({
         name: 'geomater.db',
-        location: 'default'   //aqui podemos decirle q se cree la bd en um lugar específico
+        location: 'default'
+           
       })
         .then((db: SQLiteObject) => {
           this.database = db;
@@ -40,6 +41,7 @@ export class DatabaseProvider {
             }
             else {
               this.fillDatabase();
+              
             }
           })
         })
@@ -108,46 +110,7 @@ export class DatabaseProvider {
   }
 
 
-  addReservation(from_date, to_date, cant_adult, cant_kid, price, deposit, comment, cant_bed_single, cant_bed_double, id_room, status,tarea, id_client) {
-    let data = [from_date, to_date, cant_adult, cant_kid, price, deposit, comment, cant_bed_single, cant_bed_double, id_room, status,tarea,  id_client];
-    return this.database.executeSql("INSERT INTO reservation (from_date, to_date, cant_adult, cant_kid, price, deposit, comment, cant_bed_single , cant_bed_double , id_room, status, tarea, id_client) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", data).then(res => {
-      return res;
-    });
-  }
-
-
-  addClient(name, address, address2, state, postal_code, country, passport, identification, phone, email, id_client) {
-
-    let data = [name, address, address2, state, postal_code, country, passport, identification, phone, email,id_client];
-    return this.database.executeSql("INSERT INTO client (name, address, address2, state, postal_code, country, passport , identification ,phone, email,id_client) VALUES (?,?,?,?,?,?,?,?,?,?,?)", data).then(res => {
-
-      return res;
-    });
-  }
-
-  addRoom(name, cant_people, cant_bed_aditional, cant_bed_single, cant_bed_double, view_order, price) {
-    let data = [name, cant_people, cant_bed_aditional, cant_bed_single, cant_bed_double, view_order, price];
-    return this.database.executeSql("INSERT INTO room (name, cant_people, cant_bed_aditional, cant_bed_single, cant_bed_double,view_order, price ) VALUES (?,?,?,?,?,?,?)", data).then(res => {
-      return res;
-    });
-  }
-
-  updateRoom(name, cant_people, cant_bed_aditional, cant_bed_single, cant_bed_double, view_order, price, id_room) {
-    let data = [name, cant_people, cant_bed_aditional, cant_bed_single, cant_bed_double, view_order, price, id_room];
-    return this.database.executeSql("UPDATE room SET name = ?, cant_people = ?, cant_bed_aditional = ?, cant_bed_single = ?, cant_bed_double = ?, view_order = ?, price = ? WHERE id_room = ?", data).then(res => {
-      return res;
-    });
-
-  }
-
-  updateCleaning(selected_option, fixed_day, after_exit, week_day, id_cleaning_object) {
-    let data = [selected_option, fixed_day, after_exit, week_day, id_cleaning_object];
-    return this.database.executeSql("UPDATE frequency SET selected_option = ?, fixed_day = ?, after_exit = ?, week_day = ? WHERE id_cleaning_object = ?", data).then(res => {
-      return res;
-    });
-
-  }
-
+  
 
   getAllInformacionGeneral() {
     return this.database.executeSql("SELECT * FROM informacion_general", []).then(data => {
@@ -224,7 +187,35 @@ export class DatabaseProvider {
     });
   }
 
+  getEstadoTecnicoConstructivoByFK(fk){
+    let sql = "SELECT * FROM room estado_tecnico_constructivo fk_parcela =" + fk;
+    return this.database.executeSql(sql, []).then(data => {
+      let estado_tecnico_constructivo;
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          estado_tecnico_constructivo.push({
+            id_etc: data.rows.item(i).id_etc,
+            fk_parcela: data.rows.item(i).fk_parcela,
+            elem_construct: data.rows.item(i).elem_construct,
+            caract_mater: data.rows.item(i).caract_mater,
+            modif: data.rows.item(i).modif,
+            lesiones: data.rows.item(i).lesiones,
+            localizacion: data.rows.item(i).localizacion,
+            buen_estado: data.rows.item(i).buen_estado,
+            leve: data.rows.item(i).leve,
+            cant_bed_double: data.rows.item(i).cant_bed_double,
+            grave: data.rows.item(i).grave,
+            muy_grave: data.rows.item(i).muy_grave,
 
+          });
+        }
+      }
+      return estado_tecnico_constructivo;
+    }, err => {
+      console.log(err);
+      return [];
+    });
+  }
   getAllEstadoTecnicoConstructivo() {
     
     return this.database.executeSql("SELECT * FROM estado_tecnico_constructivo", []).then(data => {
@@ -264,7 +255,7 @@ export class DatabaseProvider {
       let evaluacion_cultural;
       if (data.rows.length > 0) {
         for (var i = 0; i < data.rows.length; i++) {
-          evaluacion_cultural.push({
+            evaluacion_cultural.push({
             id_evaluacion_cultural: data.rows.item(i).id_evaluacion_cultural,
             fk_parcela: data.rows.item(i).fk_parcela,
             categoria: data.rows.item(i).categoria,
@@ -283,306 +274,81 @@ export class DatabaseProvider {
   }
 
 
-  getAllStatus() {
-    return this.database.executeSql("SELECT * FROM reservation_status", []).then(data => {
-      let reservation_status = [];
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          reservation_status.push({
-            id_status: data.rows.item(i).id_status,
-            status: data.rows.item(i).status,
+ getElementosConstructivos(){
+  return this.database.executeSql("SELECT * FROM elemento_constructivo", []).then(data => {
+    let elemento_constructivo = [];
 
-          });
-        }
+    if (data.rows.length > 0) {
+      for (var i = 0; i < data.rows.length; i++) {
+
+        elemento_constructivo.push({
+          id_ec: data.rows.item(i).id_ec,
+          elemen_construct: data.rows.item(i).elemen_construct,
+        
+        });
       }
-      return reservation_status;
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
+    }
+    return elemento_constructivo;
+  }, err => {
+    console.log(err);
+    return [];
+  });
+  
+ }
 
-  getAllRooms() {
-    return this.database.executeSql("SELECT * FROM room ORDER BY view_order", []).then(data => {
-      let rooms = [];
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          rooms.push({
-            id_room: data.rows.item(i).id_room,
-            name: data.rows.item(i).name,
-            cant_people: data.rows.item(i).cant_people,
-            cant_bed_aditional: data.rows.item(i).cant_bed_aditional,
-            cant_bed_single: data.rows.item(i).cant_bed_single,
-            cant_bed_double: data.rows.item(i).cant_bed_double,
-            view_order: data.rows.item(i).view_order,
-            price: data.rows.item(i).price
-          });
-        }
-      }
-      return rooms;
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
+ addInformacionGeneral(fk_parcela,nombre, uso_general, direccion, num_pisos){
+  let data = [fk_parcela,nombre, uso_general, direccion, num_pisos];
+  return this.database.executeSql("INSERT INTO informacion_general (fk_parcela =?, nombre = ?, uso_general = ?, direccion = ?, num_pisos = ?) VALUES (?,?,?,?,?)", data).then(res => {
+    return res;
+  });
+ }
+ updateInformacionGeneral( nombre, uso_general, direccion, num_pisos) {
+  let data = [nombre, uso_general, direccion, num_pisos];
+  return this.database.executeSql("UPDATE informacion_general SET nombre = ?, uso_general = ?, direccion = ?, num_pisos = ?", data).then(res => {
+    return res;
+  });
 
-  getRoomById(id) {
-    let sql = "SELECT * FROM room WHERE id_room =" + id;
-    return this.database.executeSql(sql, []).then(data => {
-      let room;
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          room.push({
-            id_room: data.rows.item(i).id_room,
-            name: data.rows.item(i).name,
-            cant_people: data.rows.item(i).cant_people,
-            cant_bed_aditional: data.rows.item(i).cant_bed_aditional,
-            cant_bed_single: data.rows.item(i).cant_bed_single,
-            cant_bed_double: data.rows.item(i).cant_bed_double,
-            view_order: data.rows.item(i).view_order
-          });
-        }
-      }
-      return room;
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
+}
 
+addEvaluacionCultural(fk_parcela,categoria, criterio, info_recogida, evaluacion){
+  let data = [fk_parcela,categoria, criterio, info_recogida, evaluacion];
+  return this.database.executeSql("INSERT INTO evaluacion_cultural (fk_parcela =?, categoria = ?, criterio = ?, info_recogida = ?, evaluacion = ?) VALUES (?,?,?,?,?)", data).then(res => {
+    return res;
+  });
+}
 
-  async getClientById(id) {
+updateEvaluacionCultural(categoria, criterio, info_recogida, evaluacion){
 
-    let sql = "SELECT * FROM client WHERE id_client = '" + id + "'";
+   let data = [categoria, criterio, info_recogida, evaluacion];
+  return this.database.executeSql("UPDATE evaluacion_cultural SET categoria = ?, criterio = ?, info_recogida = ?, evaluacion = ?", data).then(res => {
+    return res;
+    
+  });
+  
+}
 
-    return await this.database.executeSql(sql, []).then(data => {
-      let client;
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          client.push({
-            id_client: data.rows.item(i).id_client,
-            name: data.rows.item(i).name,
-            address: data.rows.item(i).address,
-            address2: data.rows.item(i).address2,
-            state: data.rows.item(i).state,
-            postal_code: data.rows.item(i).postal_code,
-            country: data.rows.item(i).country,
-            passport: data.rows.item(i).passport,
-            identification: data.rows.item(i).identification,
-            phone: data.rows.item(i).phone,
-            email: data.rows.item(i).email
-          });
-        }
-      }
-      return client;
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
+addEstadoTecnicoConstructivo(fk_parcela,elem_construct, caract_mater, modif, lesiones,localizacion, buen_estado, leve, grave,muy_grave){
+  let data = [fk_parcela,elem_construct, caract_mater, modif, lesiones,localizacion, buen_estado, leve, grave,muy_grave];
+  return this.database.executeSql("INSERT INTO estado_tecnico_constructivo (fk_parcela =?, estado_tecnico_constructivo SET elem_construct = ?, caract_mater = ?, modif = ?, lesiones = ?, localizacion = ?, buen_estado = ?, leve = ?, grave = ?, muy_grave = ?) VALUES (?,?,?,?,?,?,?,?,?,?)", data).then(res => {
+    return res;
+  });
+}
 
+updateEstadoTecnicoConstructivo(elem_construct, caract_mater, modif, lesiones,localizacion, buen_estado, leve, grave,muy_grave){
+  let data = [elem_construct, caract_mater, modif, lesiones,localizacion, buen_estado, leve, grave,muy_grave];
+  return this.database.executeSql("UPDATE estado_tecnico_constructivo SET elem_construct = ?, caract_mater = ?, modif = ?, lesiones = ?, localizacion = ?, buen_estado = ?, leve = ?, grave = ?, muy_grave = ?", data).then(res => {
+    return res;
+    
+  });
+}
 
-  async getClientByIdAsync(id){
-
-    let sql = "SELECT * FROM client WHERE id_client = '" + id + "'";
-
-   let client = [];
-    let data = await this.database.executeSql(sql, []);
-
-           if (data.rows.length > 0) {
-             for (var i = 0; i < data.rows.length; i++) {
-               client.push({
-                 id_client: data.rows.item(i).id_client,
-                 name: data.rows.item(i).name,
-                 address: data.rows.item(i).address,
-                 address2: data.rows.item(i).address2,
-                 state: data.rows.item(i).state,
-                 postal_code: data.rows.item(i).postal_code,
-                 country: data.rows.item(i).country,
-                 passport: data.rows.item(i).passport,
-                 identification: data.rows.item(i).identification,
-                 phone: data.rows.item(i).phone,
-                 email: data.rows.item(i).email
-               });
-             }
-
-           }
-
-
-   return client;
-  }
-
-
-  getLastClient() {
-    let sql = "SELECT * FROM client";
-
-    return this.database.executeSql(sql, []).then(data => {
-      let client;
-      let id;
-      if (data.rows.length > 0) {
-
-        let maxId = data.rows.item(0).id_client;
-         id =  data.rows.item(0).id_client;
-        for (var i = 0; i < 1; i++) {
-
-          if(maxId<data.rows.item(i).id_client)
-             id = i;
-
-          client.push({
-            id_client: data.rows.item(i).id_client,
-            name: data.rows.item(i).name,
-            address: data.rows.item(i).address,
-            address2: data.rows.item(i).address2,
-            state: data.rows.item(i).state,
-            postal_code: data.rows.item(i).postal_code,
-            country: data.rows.item(i).country,
-            passport: data.rows.item(i).passport,
-            identification: data.rows.item(i).identification,
-            phone: data.rows.item(i).phone,
-            email: data.rows.item(i).email
-          });
-        }
-      //  alert('id cliente DB: '+client.id_client);
-      }
-      return client[id];
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
-
-  updateReservationTarea(id_reservation,tarea,limpiezaBd) {
-    let data = [tarea,limpiezaBd, id_reservation];
-    return this.database.executeSql("UPDATE reservation SET tarea = ?, limpieza = ?  WHERE id_reservation = ? ", data).then(res => {
-      return res;
-    });
-
-  }
-  updateReservationTareaLimpieza(id_reservation,limpiezaBd) {
-    let data = [limpiezaBd, id_reservation];
-    return this.database.executeSql("UPDATE reservation SET  limpieza = ?  WHERE id_reservation = ? ", data).then(res => {
-      return res;
-    });
-
-  }
-
-  updateReservationStatus(id_reservation,status) {
-    let data = [status, id_reservation];
-
-    return this.database.executeSql("UPDATE reservation SET status = ? WHERE id_reservation = ?", data).then(res => {
-      return res;
-    });
-
-  }
-
-  deleteReservation(id_reservation){
-
-    let sql = "DELETE FROM reservation WHERE id_reservation = ?";
-    let data = [id_reservation]
-    return this.database.executeSql(sql,data).then(res => {
-      return res;
-    });
-
-  }
-
-  deleteRoom(id_room){
-
-    let data = [id_room];
-    let sql = "DELETE FROM room WHERE id_room = ?";
-    return this.database.executeSql(sql,data).then(res => {
-      return res;
-    });
-
-  }
-
-  deleteReservationsByRoom(id_room){
-    let sql = "DELETE FROM reservation WHERE id_room = ?";
-    return this.database.executeSql(sql,id_room).then(res => {
-      return res;
-    });
-  }
-
-  updateReservation(from_date, to_date, cant_adult, cant_kid, price, deposit, comment, cant_bed_single, cant_bed_double, id_room, status, id_client, id_reservation) {
-    let data = [from_date, to_date, cant_adult, cant_kid, price, deposit, comment, cant_bed_single, cant_bed_double, id_room, status, id_client, id_reservation];
-    return this.database.executeSql("UPDATE reservation SET from_date = ?, to_date = ?, cant_adult = ?, cant_kid = ?, price = ?, deposit = ?, comment = ?, cant_bed_single = ?, cant_bed_double = ?, id_room = ?, status = ?, id_client = ? WHERE id_reservation = ?", data).then(res => {
-      return res;
-    });
-
-  }
-  updateClient(name, address, address2, state, postal_code, country, passport, identification, phone, email, id_client) {
-    let data = [name, address, address2, state, postal_code, country, passport, identification, phone, email, id_client];
-    return this.database.executeSql("UPDATE client SET name = ?, address = ?, address2 = ?, state = ?, postal_code = ?, country = ?, passport = ?, identification = ?, phone = ?, email = ? WHERE id_client = ?", data).then(res => {
-      return res;
-    });
-
-  }
-
-  async getRoomByIdAsync(id) {
-    let sql = "SELECT * FROM room WHERE id_room =" + id;
-    return await this.database.executeSql(sql, []).then(data => {
-      let room;
-      if (data.rows.length > 0) {
-        for (var i = 0; i < data.rows.length; i++) {
-          room={
-            id_room: data.rows.item(i).id_room,
-            name: data.rows.item(i).name,
-            cant_people: data.rows.item(i).cant_people,
-            cant_bed_aditional: data.rows.item(i).cant_bed_aditional,
-            cant_bed_single: data.rows.item(i).cant_bed_single,
-            cant_bed_double: data.rows.item(i).cant_bed_double,
-            view_order: data.rows.item(i).view_order
-          };
-        }
-      }
-      return room;
-    }, err => {
-      console.log(err);
-      return [];
-    });
-  }
-
-
-
- 
-
-  async updateInicioProfile(inicio) {
-    let data = [inicio, 1];
-
-    return await this.database.executeSql("UPDATE profile SET inicio = ? WHERE id_profile = ?", data).then(res => {
-
-      return res;
-    }, rej=>{
-      console.log(rej.message)
-    });
-
-  }
-
-   updateInicioFixedDay(fixed_day) {
-    let data = [fixed_day, 1];
-
-    return  this.database.executeSql("UPDATE profile SET fixed_day = ? WHERE id_profile = ?", data).then(res => {
-
-      return res;
-    }, rej=>{
-      console.log(rej.message)
-    });
-
-  }
-
-    updateWeekDayInfo(week_day_info) {
-    let data = [week_day_info, 1];
-
-    return  this.database.executeSql("UPDATE profile SET week_day_info = ? WHERE id_profile = ?", data).then(res => {
-
-      return res;
-    }, rej=>{
-      console.log(rej.message)
-    });
-
-  }
-
-
-
+deleteEstadoTecnicoConstructivo(id_etc){
+  let sql = "DELETE FROM estado_tecnico_constructivo WHERE id_reservation = ?";
+  let data = [id_etc]
+  return this.database.executeSql(sql,data).then(res => {
+    return res;
+  });
+}
 }
 
 

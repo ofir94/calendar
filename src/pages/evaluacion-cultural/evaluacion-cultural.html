@@ -1,0 +1,69 @@
+<!--
+  Generated template for the EvaluacionCulturalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Evaluacion Cultural</ion-title>
+    
+    <ion-buttons start style="padding-left: 10px;">
+      <button ion-button icon-only (click)="closeModal()"  >
+        <ion-icon md="md-close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+
+  <form >
+    <ion-list>
+
+        <ion-item>
+
+            <ion-label floating>Categoría</ion-label>
+            <ion-select  [(ngModel)]="evaluacionCultural.categoria" name="evaluacionCultural.categoria"  >
+              <ion-option *ngFor="let cat of allCategoria" value="{{cat.id_eval_cult_categoria}}" >{{cat.categoria}}</ion-option>
+             
+            </ion-select>
+            
+          </ion-item>
+
+         
+          <ion-item>
+
+            <ion-label floating>Criterio</ion-label>
+            <ion-select [(ngModel)]="evaluacionCultural.criterio" name="evaluacionCultural.criterio"  >
+              <ion-option *ngFor="let criterio of allCriterio" value="{{criterio.id_eval_cult_criterio}}" >{{criterio.criterio}}</ion-option>
+             
+            </ion-select>
+            
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Información Recogida</ion-label>
+            <ion-input type="text" [(ngModel)]="evaluacionCultural.info_recogida" name="evaluacionCultural.info_recogida" >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+
+            <ion-label floating>Evaluación</ion-label>
+            <ion-select [(ngModel)]="evaluacionCultural.categoria" name="evaluacionCultural.categoria"  >
+              <ion-option *ngFor="let evaluacion of allEvaluacion" value="{{evaluacion.id_eval_cult_evaluacion}}" >{{evaluacion.evaluacion}}</ion-option>
+             
+            </ion-select>
+            
+          </ion-item>
+
+          </ion-list>
+          <button ion-button (click)="save()" full round >Guardar</button>
+
+        </form >
+            
+</ion-content>

@@ -41,7 +41,6 @@ export class SearchPage {
   ) {
 
 
-
     this.allInnformacionGeneral = this.ionformacionGeneralProvider.allInformacionGeneral;
     // this.databaseProvider.loadPage = "SearchPage";
 
@@ -215,7 +214,7 @@ export class SearchPage {
  
  
   viewInformacionGeneral(info){ //Aqui poner la info general
-  alert("Info de general");
+  // alert("Info de general");
     this.ionformacionGeneralProvider.ionforamcionGeneral.id_info_general = info.id_info_general;
     this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela = info.fk_parcela;
     this.ionformacionGeneralProvider.ionforamcionGeneral.nombre = info.nombre;
@@ -223,13 +222,15 @@ export class SearchPage {
     this.ionformacionGeneralProvider.ionforamcionGeneral.direccion = info.direccion;
     this.ionformacionGeneralProvider.ionforamcionGeneral.num_pisos = info.num_pisos;
 
-    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.id_info_general);
-    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
-    alert(this.ionformacionGeneralProvider.ionforamcionGeneral.nombre);
-    alert( this.ionformacionGeneralProvider.ionforamcionGeneral.uso_general);
+    // alert(this.ionformacionGeneralProvider.ionforamcionGeneral.id_info_general);
+    // alert(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    // alert(this.ionformacionGeneralProvider.ionforamcionGeneral.nombre);
+    // alert( this.ionformacionGeneralProvider.ionforamcionGeneral.uso_general);
 
-    // let evaluacionCultural = this.evaluacionCulturalProvider.getEvaluacionCulturalByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    // let allEvaluacionCultural = this.evaluacionCulturalProvider.getEvaluacionCulturalByFKStatic(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    let allEvaluacionCultural = this.evaluacionCulturalProvider.getEvaluacionCulturalByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
 
+    // if(evaluacionCultural != null){
     // //esto esta de mas pq getEvaluacionCulturalByFK(fk) ya le da valor a evaluacionCultural
     // this.evaluacionCulturalProvider.evaluacionCultural.id_evaluacion_cultural = evaluacionCultural.id_evaluacion_cultural;
     // this.evaluacionCulturalProvider.evaluacionCultural.fk_parcela = evaluacionCultural.fk_parcela;
@@ -237,33 +238,40 @@ export class SearchPage {
     // this.evaluacionCulturalProvider.evaluacionCultural.criterio = evaluacionCultural.criterio;
     // this.evaluacionCulturalProvider.evaluacionCultural.info_recogida = evaluacionCultural.info_recogida;
     // this.evaluacionCulturalProvider.evaluacionCultural.evaluacion = evaluacionCultural.evaluacion;
-
+    // }
     // alert(this.evaluacionCulturalProvider.evaluacionCultural.id_evaluacion_cultural);
     // alert(this.evaluacionCulturalProvider.evaluacionCultural.fk_parcela);
     // alert(this.evaluacionCulturalProvider.evaluacionCultural.categoria);
     // alert(this.evaluacionCulturalProvider.evaluacionCultural.criterio);
    
-    // let estadoTecnicoConstructivo = this.estadoTecnicoConstructivoProvider.getEstadoTecnicoConstructivoByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    // let allEstadoTecnicoConstructivo = this.estadoTecnicoConstructivoProvider.getEstadoTecnicoConstructivoByFKStatic(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
+    let allEstadoTecnicoConstructivo = this.estadoTecnicoConstructivoProvider.getEstadoTecnicoConstructivoByFK(this.ionformacionGeneralProvider.ionforamcionGeneral.fk_parcela);
 
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.id_etc = estadoTecnicoConstructivo.id_etc;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.fk_parcela = estadoTecnicoConstructivo.fk_parcela;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.elem_construct = estadoTecnicoConstructivo.elem_construct;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.caract_mater = estadoTecnicoConstructivo.caract_mater;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.modif = estadoTecnicoConstructivo.modif;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.lesiones = estadoTecnicoConstructivo.lesiones;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.localizacion = estadoTecnicoConstructivo.localizacion;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.buen_estado = estadoTecnicoConstructivo.buen_estado;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.leve = estadoTecnicoConstructivo.leve;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.grave = estadoTecnicoConstructivo.grave;
-    // this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.muy_grave = estadoTecnicoConstructivo.muy_grave;
-
+    // if( allEstadoTecnicoConstructivo.length > 0){
+    //   for(let estadoTecnicoConstructivo of allEstadoTecnicoConstructivo){ 
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.id_etc = estadoTecnicoConstructivo.id_etc;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.fk_parcela = estadoTecnicoConstructivo.fk_parcela;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.elem_construct = estadoTecnicoConstructivo.elem_construct;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.caract_mater = estadoTecnicoConstructivo.caract_mater;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.modif = estadoTecnicoConstructivo.modif;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.lesiones = estadoTecnicoConstructivo.lesiones;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.localizacion = estadoTecnicoConstructivo.localizacion;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.buen_estado = estadoTecnicoConstructivo.buen_estado;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.leve = estadoTecnicoConstructivo.leve;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.grave = estadoTecnicoConstructivo.grave;
+    //     this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.muy_grave = estadoTecnicoConstructivo.muy_grave;
+        
+    //   }
+    // }
     // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.id_etc);
     // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.fk_parcela);
     // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.elem_construct);
     // alert( this.estadoTecnicoConstructivoProvider.estadoTecnicoConstructivo.caract_mater);
 
 
-  //   this.navCtrl.push(TabPage);
+
+    this.navCtrl.push(TabPage);
+    this.closeModal();
 
   }
 
